@@ -1,0 +1,46 @@
+body{
+	background: white;
+	padding:0px;
+	margin:0px;  
+}
+
+#header{
+	position: fixed;
+	top:0;
+	width: 100%;
+	height: 40px; 
+	line-height: 40px;
+	background-color:#545482;
+	color:white;
+	font-size: 14pt;
+	font-weight: bold;
+	font-family: "Century Gothic";
+	letter-spacing: 5px;
+	z-index: 1;
+	padding:0px;
+	margin:0px;  
+}
+
+#nav{
+	position: fixed;
+	top:40px;
+	background-color:#86A9A9;
+	color: white;
+	font-size: 11pt;
+	text-align: center;
+	z-index: 1;
+	padding:0px;
+	margin:0px;
+}
+
+#nav2:hover{
+	cursor:pointer;
+	font-weight: bold;
+}
+
+#summary{
+	border: solid 1px black;
+	margin-top: 100px;
+	height: 400px;
+
+}
