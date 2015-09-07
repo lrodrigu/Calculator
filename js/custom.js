@@ -32,58 +32,39 @@
 
       function getData(dataRange){
 
-        var dataArray;
+        var dataArray = [
+            ['Date', 'Stock Value'],
+        ];
+
+        var BASE_URL = 'http://query.yahooapis.com/v1/public/yql?q=';
+        var yql_query;        
+
+        if(dataRange === "year"){
+            yql_query = 'select * from yahoo.finance.historicaldata where symbol = "YHOO" and startDate = "2013-09-29" and endDate = "2014-09-29"';
+        }else if (dataRange === "halfyear"){
+            yql_query = 'select * from yahoo.finance.historicaldata where symbol = "YHOO" and startDate = "2014-03-29" and endDate = "2014-09-29"';
+        };
+
+        var query_str_final = yql_query_str + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        var yql_query_str = encodeURI(BASE_URL+yql_query);
+
+        $.getJSON(query_str_final, function(data){
+            var stockArray = data.query.results.quote
     
-            if(dataRange === "year"){
-                dataArray = [
-                    ['Year', 'Stock Price'],
-                    ['Jan', 1000],
-                    ['Feb', 1170],
-                    ['Mar', 660],
-                    ['Apr', 1130],
-                    ['May', 1430],
-                    ['Jun', 1340],
-                    ['Jul', 1030],
-                    ['Aug', 1340],
-                    ['Sep', 1660],
-                    ['Oct', 1541],
-                    ['Nov', 2030],
-                    ['Dec', 1220],                                                                                                                        
-                ];
-            }else if (dataRange === "halfyear"){
-                dataArray = [
-                    ['Year', 'Stock Price'],
-                    ['Jan 1', 1000],
-                    ['Jan 15', 1100],
-                    ['Feb 1', 1170],
-                    ['Feb 15', 1270],
-                    ['Mar 1', 660],
-                    ['Mar 15', 650],
-                    ['Apr 1', 1030],
-                    ['Apr 15', 1130],
-                    ['May 1', 1230],
-                    ['May 15', 1420],
-                    ['Jun 1', 1340],
-                    ['Jun 15', 1240],
-                    ['Jul 1', 1000],
-                    ['Jul 15', 1130],
-                    ['Aug 1', 1340],
-                    ['Aug 15', 1540],
-                    ['Sep 1', 1600],
-                    ['Sep 15', 1660],
-                    ['Oct 1', 1511],
-                    ['Oct 15', 1141],
-                    ['Nov 1', 2000],
-                    ['Nov 15', 2430],
-                    ['Dec 1', 1250],
-                    ['Dec 15', 1220],                                                                                                                        
-                     ];
+            for (var i = 0; i < stockArray.length; i++) {
+                var currentObject = stockArray[i];
+                console.log(currentObject.Close);
+                //Push values of currentObject.date and currentObject.close into DataArray
+                var pushedArray = [currentObject.Date, parseFloat(currentObject.close)];
+                dataArray[i+1] = pushedArray;
 
-                };
+            }
+            console.log(DataArray)
+            return dataArray;
 
-        return dataArray;
-
-            };
+        });
+    
+        };
 
             
       function buttonPressed(buttonTitle){
