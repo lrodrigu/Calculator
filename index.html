@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Valuation</title>
+		<title>Company Valuation Calculator</title>
 	</head>
 		
 		<meta charset="utf-8">
@@ -12,93 +12,549 @@
 		<link rel="Stylesheet" href="css/custom.css"/>
 		<link rel="icon" href="js/favicon.ico">
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['table']}]}"></script>
 
+		<script type="text/javascript">
+
+		</script>
+
 	<style>
-/*
-	*{
+
+/*	*{
 		border:solid 1px black;
 	}*/
-#container1{
-	margin-top: 100px;
-}
+
 	</style>
 
 	<body>
 
-	    <nav class="navbar navbar-inverse navbar-fixed-top">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#">Financial Valuation Calculator</a>
-	        </div>
-	        <div id="navbar" class="collapse navbar-collapse">
-	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="#">Summary</a></li>
-	            <li><a href="#keymetrics">Key Metics</a></li>
-	            <li><a href="#statementanalysis">Statment Analysis</a></li>
-	            <li><a href="#peervaluation">Peer Valuation</a></li>
-	          </ul>
-	        </div><!--/.nav-collapse -->
-	      </div>
+		<!-- Navigation bar begins -->
+
+		<nav class="navbar navbar-default navbar-fixed-top" id="navcolor">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>	
+					<a class="navbar-brand" href="#"><b>Financial Valuation Calculator</b></a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav" id="navcolor">
+						<li><a href="#container0">Financial Summary</a></li>
+						<li><a href="#container2">Key Metics</a></li>
+						<li><a href="#container3">Statment Analysis</a></li>
+						<li><a href="#peervaluation">Peer Valuation</a></li>
+					</ul>
+				</div>
+			</div>
 	    </nav>
 
-		<div class="container" id="container1">
+		<!-- Navigation bar ends -->
+		
+		<div class="container" id="container0">
+
+			<div class="row" id="mainsection">Symbol Lookup</div>
+		
+	
 			<div class="row">
-				<div class="col-md-12" id="table_div"></div>
+			
+				<div class="col-md-3">
+					<input type="text" class="form-control" placeholder='Enter ticker (e.g., "AAPL", "FB")' style="font-size:9pt;" id="ticketinput" value="">
+				</div>
+				
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-primary" id="ticketsubmit" value="click" onclick="getStockData()">Get Stock Data</button> 
+				</div>	
+			
+			</div>	
+			
+			<div class="row">
+				<div class="col-md-2">
+					<div id="EBITDA"></div>
+					<div id="PriceBook"></div>
+					<div id="PriceSales"></div>
+				</div>
 			</div>
+		
+			<div class="row">
+				
+				<div class="col-md-5" id="companyname">
+				International Business Machines Corporation (IBM)
+				</div>
+
+				<div class="col-md-1" id="companystockprice">
+				$147.23
+				</div>
+			
+				<div class="col-md-2" id="companystockpricechange">
+				&uarr; 3.53 (2.46%)
+				</div>	
+			
+			</div>
+
+		
 		</div>
 
 		<div class="container" id="container1">
+		
+			<div class="row" id="mainsection">Financial Summary</div>
+			
+			<div class="row" id="subsection">Company Profile</div>
+			<div class="row" id="textdes"><b>International Business Machines Corporation</b> is a technology company. The Company operates in five business segments: Global Technology Services (GTS), which includes Strategic Outsourcing, Integrated Technology Services, Cloud and Technology Support Services, and also provides information technology (IT) infrastructure and business process services; Global Business Services (GBS), which offers its services across Consulting and Systems Integration, Global Process Services and Application Management Services; Software, which consists of middleware and operating systems software; Systems and Technology (STG), which provides infrastructure technologies, and Global Financing, which provides financing solutions for products or services that are critical to the end users' business operations. Its IBM Watson Health Cloud platform collects clinical, research and social data from a range of health sources and creates a cloud-based data sharing hub.</div>
+			
+			<div class="row" id="subsection">Price Performance</div>
 			
 			<div class="row">
-				<div class="col-md-12">Data Visualization</div>
+			
+				<button type="button" class="btn btn-default" onclick="buttonPressed('year')">1y</button>
+				<button type="button" class="btn btn-default" onclick="buttonPressed('halfyear')">6m</button>
+			
 			</div>
 			
-			<div class="row">
-				<div class="col-md-12" id="chart_div"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<button type="button" class="btn btn-default" onclick="buttonPressed('year')">1y</button>
-					<button type="button" class="btn btn-default" onclick="buttonPressed('halfyear')">6m</button>
-				</div>
-			</div>
+			<div class="row" id="chart_div"></div>
 			
-			<div class="row">
-				<div class="col-md-12">
-					<p id="change"></p>
-				</div>
+			<div class="row" id="subsection">Financial Statements</div>
+		
+			<div class="row" id="period">
+				<div class="col-md-3">Period Ending</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2014</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2013</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2012</div>
 			</div>
 
-
 			
+			<div class="row" id="statementtitle">BALANCE SHEET</div>
+					
+				<div class="row">
+					<div class="col-md-3">Cash And Cash Equivalents</div>
+					<div class="col-md-3" id="rightindent">8,476,000</div>
+					<div class="col-md-3" id="rightindent">10,716,000</div>
+					<div class="col-md-3" id="rightindent">10,412,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Short Term Investments</div>
+					<div class="col-md-3" id="rightindent">-</div>
+					<div class="col-md-3" id="rightindent">350,000</div>
+					<div class="col-md-3" id="rightindent">717,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Net Receivables</div>
+					<div class="col-md-3" id="rightindent">33,875,000</div>
+					<div class="col-md-3" id="rightindent">33,487,000</div>
+					<div class="col-md-3" id="rightindent">31,993,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Inventory</div>
+					<div class="col-md-3" id="rightindent">2,103,000</div>
+					<div class="col-md-3" id="rightindent">2,310,000</div>
+					<div class="col-md-3" id="rightindent">2,287,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Other Current Assets</div>
+					<div class="col-md-3" id="rightindent">4,967,000</div>
+					<div class="col-md-3" id="rightindent">4,488,000</div>
+					<div class="col-md-3" id="rightindent">4,024,000</div>
+				</div>
+
+				<div class="row" id="subtotals">
+					<div class="col-md-3">Total Current Assets</div>
+					<div class="col-md-3" id="rightindent">49,422,000</div>
+					<div class="col-md-3" id="rightindent">51,350,000</div>
+					<div class="col-md-3" id="rightindent">49,433,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Long Term Investments</div>
+					<div class="col-md-3" id="rightindent">16,712,000</div>
+					<div class="col-md-3" id="rightindent">17,394,000</div>
+					<div class="col-md-3" id="rightindent">17,833,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Property Plant and Equipment</div>
+					<div class="col-md-3" id="rightindent">10,771,000</div>
+					<div class="col-md-3" id="rightindent">13,821,000</div>
+					<div class="col-md-3" id="rightindent">13,996,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Goodwill</div>
+					<div class="col-md-3" id="rightindent">30,556,000</div>
+					<div class="col-md-3" id="rightindent">31,184,000</div>
+					<div class="col-md-3" id="rightindent">29,247,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Intangible Assets</div>
+					<div class="col-md-3" id="rightindent">3,104,000</div>
+					<div class="col-md-3" id="rightindent">3,871,000</div>
+					<div class="col-md-3" id="rightindent">3,787,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Accumulated Amortization</div>
+					<div class="col-md-3" id="rightindent">-</div>
+					<div class="col-md-3" id="rightindent">-</div>
+					<div class="col-md-3" id="rightindent">-</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Other Assets</div>
+					<div class="col-md-3" id="rightindent">2,160,000</div>
+					<div class="col-md-3" id="rightindent">5,551,000</div>
+					<div class="col-md-3" id="rightindent">945,000</div>
+				</div>
+			
+				<div class="row">
+					<div class="col-md-3">Deferred Long Term Assets Charges</div>
+					<div class="col-md-3" id="rightindent">4,808,000</div>
+					<div class="col-md-3" id="rightindent">3,051,000</div>
+					<div class="col-md-3" id="rightindent">3,973,000</div>
+				</div>
+
+				<div class="row" id="totals">
+					<div class="col-md-3">TOTAL ASSETS</div>
+					<div class="col-md-3" id="rightindent">117,532,000</div>
+					<div class="col-md-3" id="rightindent">126,223,000</div>
+					<div class="col-md-3" id="rightindent">119,213,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Accounts Payable</div>
+					<div class="col-md-3" id="rightindent">21,992,000</div>
+					<div class="col-md-3" id="rightindent">20,735,000</div>
+					<div class="col-md-3" id="rightindent">22,492,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Short/Current Long Term Debt</div>
+					<div class="col-md-3" id="rightindent">5,731,000</div>
+					<div class="col-md-3" id="rightindent">6,862,000</div>
+					<div class="col-md-3" id="rightindent">9,181,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Other Current Liabilities</div>
+					<div class="col-md-3" id="rightindent">11,877,000</div>
+					<div class="col-md-3" id="rightindent">12,557,000</div>
+					<div class="col-md-3" id="rightindent">11,952,000</div>
+				</div>
+
+				<div class="row" id="subtotals">
+					<div class="col-md-3">Total Current Liabilities</div>
+					<div class="col-md-3" id="rightindent">39,600,000</div>
+					<div class="col-md-3" id="rightindent">40,154,000</div>
+					<div class="col-md-3" id="rightindent">43,625,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Long Term Debt</div>
+					<div class="col-md-3" id="rightindent">35,073,000</div>
+					<div class="col-md-3" id="rightindent">32,856,000</div>
+					<div class="col-md-3" id="rightindent">24,088,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Other Liabilities</div>
+					<div class="col-md-3" id="rightindent">27,153,000</div>
+					<div class="col-md-3" id="rightindent">26,176,000</div>
+					<div class="col-md-3" id="rightindent">28,025,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Deferred Long Term Liability Charges</div>
+					<div class="col-md-3" id="rightindent">3,691,000</div>
+					<div class="col-md-3" id="rightindent">4,108,000</div>
+					<div class="col-md-3" id="rightindent">4,491,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Minority Interest</div>
+					<div class="col-md-3" id="rightindent">146,000</div>
+					<div class="col-md-3" id="rightindent">137,000</div>
+					<div class="col-md-3" id="rightindent">124,000</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Negative Goodwill</div>
+					<div class="col-md-3" id="rightindent">-</div>
+					<div class="col-md-3" id="rightindent">-</div>
+					<div class="col-md-3" id="rightindent">-</div>
+				</div>
+
+
+				<div class="row" id="totals">
+					<div class="col-md-3">TOTAL LIABILITIES</div>
+					<div class="col-md-3" id="rightindent">105,664,000</div>
+					<div class="col-md-3" id="rightindent">103,431,000</div>
+					<div class="col-md-3" id="rightindent">100,353,000</div>
+				</div>
+
+				<div class="row" id="totals">
+					<div class="col-md-3">TOTAL STOCKHOLDERS' EQUITY</div>
+					<div class="col-md-3" id="rightindent">11,868,000</div>
+					<div class="col-md-3" id="rightindent">22,792,000</div>
+					<div class="col-md-3" id="rightindent">18,860,000</div>
+				</div>
+
+			<hr></hr>
+
+			<div class="row" id="statementtitle">INCOME STATEMENT</div>
+
+				<div class="row">
+					<div class="col-md-3">Total Revenue</div>
+					<div class="col-md-3" id="rightindent">92,793,000</div>
+					<div class="col-md-3" id="rightindent">98,367,000</div>
+					<div class="col-md-3" id="rightindent">102,874,000</div>
+				</div>	
+			
+				<div class="row">	
+					<div class="col-md-3">Cost of Goods Sold</div>
+					<div class="col-md-3" id="rightindent">46,386,000</div>
+					<div class="col-md-3" id="rightindent">49,683,000</div>
+					<div class="col-md-3" id="rightindent">52,513,000</div>
+				</div>
+
+				<div class="row">	
+					<div class="col-md-3">Gross Profit</div>
+					<div class="col-md-3" id="rightindent">46,407,000</div>
+					<div class="col-md-3" id="rightindent">48,684,000</div>
+					<div class="col-md-3" id="rightindent">50,361,000</div>
+				</div>
+				
+				<div class="row">	
+					<div class="col-md-3">Operating Expenses</div>
+					<div class="col-md-3" id="rightindent">22,438,000</div>
+					<div class="col-md-3" id="rightindent">22,629,000</div>
+					<div class="col-md-3" id="rightindent">22,389,000</div>
+				</div>
+
+				<div class="row">	
+				<div class="col-md-3">Operating Income or Loss</div>
+					<div class="col-md-3" id="rightindent">18,532,000</div>
+					<div class="col-md-3" id="rightindent">20,312,000</div>
+					<div class="col-md-3" id="rightindent">22,156,000</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Net Income</div>
+					<div class="col-md-3" id="rightindent">12,022,000</div>
+					<div class="col-md-3" id="rightindent">16,483,000</div>
+					<div class="col-md-3" id="rightindent">16,604,000</div>
+				</div>
+
+			<hr></hr>
+
+			<div class="row" id="statementtitle">CASH FLOW STATEMENT</div>
+
+				<div class="row">
+					<div class="col-md-3">Cash Flow From Operating Activities</div>
+					<div class="col-md-3" id="rightindent">16,868,000</div>
+					<div class="col-md-3" id="rightindent">17,485,000</div>
+					<div class="col-md-3" id="rightindent">19,586,000</div>					
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Cash Flow From Investing Activities</div>
+					<div class="col-md-3" id="rightindent">(3,001,000)</div>
+					<div class="col-md-3" id="rightindent">(7,326,000)</div>
+					<div class="col-md-3" id="rightindent">(9,004,000)</div>					
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">Cash Flow From Financing Activities</div>
+					<div class="col-md-3" id="rightindent">(15,452,000)</div>
+					<div class="col-md-3" id="rightindent">(9,883,000)</div>
+					<div class="col-md-3" id="rightindent">(11,976,000)</div>					
+				</div>
+
+				<div class="row" id="totals">
+					<div class="col-md-3">Change in Cash and Equivalents</div>
+					<div class="col-md-3" id="rightindent">(2,240,000)</div>
+					<div class="col-md-3" id="rightindent">304,000</div>
+					<div class="col-md-3" id="rightindent">(1,511,000)</div>				
+				</div>
+
+		</div>
+					
+		<div class="container" id="container2">
+			
+			<div class="row" id="mainsection">Key Metrics</div>
+			
+			<div class="row" id="period">
+				<div class="col-md-3">Period Ending</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2014</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2013</div>
+				<div class="col-md-3" id="centerindent">Dec 31, 2012</div>
+			</div>
+			
+			<div class="row" id="ratiotype">Liquidity Ratios</div>
+			
+				<div class="row">
+				<div class="col-md-3">Current Ratio</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Quick Ratio</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Cash Ratio</div>	
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+			<div class="row" id="ratiotype">Asset Turnover</div>
+			
+				<div class="row">
+				<div class="col-md-3">Receivables Turnover</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Average Collection Period</div>
+				<div class="col-md-3" id="rightindent">x days</div>
+				<div class="col-md-3" id="rightindent">x days</div>
+				<div class="col-md-3" id="rightindent">x days</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Inventory Turnover</div>	
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>			
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Inventory Period</div>	
+				<div class="col-md-3" id="rightindent">x days</div>
+				<div class="col-md-3" id="rightindent">x days</div>
+				<div class="col-md-3" id="rightindent">x days</div>	
+				</div>
+
+			<div class="row" id="ratiotype">Financial Leverage Ratios</div>
+			
+				<div class="row">
+				<div class="col-md-3">Debt Ratio</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Debt to Equity Ratio</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Interest Coverage</div>	
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>
+				<div class="col-md-3" id="rightindent">x</div>			
+				</div>
+
+			<div class="row" id="ratiotype">Profitability Ratios</div>
+			
+				<div class="row">
+				<div class="col-md-3">Gross Profit Margin</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Return on Assets</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Return on Equity</div>	
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>			
+				</div>
+
+			<div class="row" id="ratiotype">Dividend Policy Ratios</div>
+			
+				<div class="row">
+				<div class="col-md-3">Dividend Yield</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				</div>
+
+				<div class="row">
+				<div class="col-md-3">Payout Ratio</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				<div class="col-md-3" id="rightindent">%</div>
+				</div>
+
 		</div>
 
+		<div class="container" id="container3">
 
+			<div class="row" id="mainsection">Statement Analysis</div>
+	
+				<div class="col-md-4">
+					<div class="row" id="graphtitle">Balance Sheet</div>
+					<div class="row" id="piechart_div"></div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="row" id="graphtitle">Income Statment</div>
+					<div class="row" id="piechart_div"></div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="row" id="graphtitle">Cash Flow Statement</div>
+					<div class="row" id="piechart_div"></div>
+				</div>
+	
+		</div>
+
+		<div class="row" id="footer">
+		
+				<div class="col-md-1"></div>
+				<div class="col-md-1">about us</div>
+				<div class="col-md-1">FAQs</div>
+				<div class="col-md-1">jobs</div>
+				<div class="col-md-1">office</div>
+				<div class="col-md-1">blog</div>			
+				<div class="col-md-1">community</div>
+				<div class="col-md-1">privacy</div>
+				<div class="col-md-1">terms</div>
+				<div class="col-md-2">&#169Copyrights 2015</div>
+
+		</div>
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/custom.js"></script>
 
-		<script type="text/javascript">
-		var BASE_URL = 'http://query.yahooapis.com/v1/public/yql?q=';
-		var yql_query = 'select * from yahoo.finance.quote where symbol in ("YHOO", "AAPL", "GOOG", "MSFT")';
-		var yql_query_str = encodeURI(BASE_URL+yql_query);
-		var query_str_final = yql_query_str + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-		$.getJSON(query_str_final, function(data){
-			console.log(data);
-			var quoteObject = data.query.results.quote[0];
-			var changeValue = quoteObject.Change;
-			document.getElementById("change").innerHTML = "Change: " +changeValue;
-		});
-		</script>
+			</script>
 
 
 	</body>

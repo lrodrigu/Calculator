@@ -89,16 +89,71 @@
 		      // Instantiate and draw our chart, passing in some options.
 		      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 		      chart.draw(chartData, options);
+
+
+		      	var changeValue	= data.query.results.quote[0].Change;
+	        	document.getElementById("change").innerHTML = changeValue;
+
 		        });
 		    
 	        };
 
-	            
 		      function buttonPressed(buttonTitle){
 		            
 		            data = getData(buttonTitle);
 
 		      };
+
+
+   		   	google.load("visualization", "1.1", {packages:["table"]});
+
+			 google.setOnLoadCallback(drawTable);
+
+			      function drawTable() {
+			
+			        var dataMyTable = new google.visualization.DataTable();
+			
+			          var newData = 
+			          [['Year', 'Sales', 'Expenses' , 'Other'],
+			            ['2004',  1000,      400     ,  232   ],
+			            ['2005',  1170,      460    ,  421   ],
+			            ['2006',  660,       1120    ,  4324  ],
+			            ['2007',  1030,      540     ,  4234  ],
+			            ['2008',  1530,      50     ,    234  ]];
+
+			        var options = {'width':50%,
+                      };
+
+			          // determine the number of rows and columns.
+			          var numRows = newData.length;
+			          var numCols = newData[0].length;
+
+			          // in this case the first column is of type 'string'.
+			          dataMyTable.addColumn('string', newData[0][0]);
+
+			          // all other columns are of type 'number'.
+			          for (var i = 1; i < numCols; i++)
+			            dataMyTable.addColumn('number', newData[0][i]);           
+
+			          // now add the rows.
+			          for (var i = 1; i < numRows; i++)
+			            dataMyTable.addRow(newData[i]);
+
+
+			        // dataMyTable.addColumn('string', 'Name');
+			        // dataMyTable.addColumn('number', 'Salary');
+			        //   dataMyTable.addRows([
+			        //   ['Mike',  {v: 10000, f: '$10,000'}],
+			        //   ['Jim',   {v:8000,   f: '$8,000'}],
+			        //   ['Alice', {v: 12500, f: '$12,500'}],
+			        //   ['Bob',   {v: 7000,  f: '$7,000'}]
+			        // ]);
+
+			        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+			        table.draw(dataMyTable, {showRowNumber: false, width: '100%', height: '100%'});
+      }
+
 
 
 
@@ -145,11 +200,6 @@
 	      </div>
 	    </nav>
 
-<!-- 		<div class="container" id="container1">
-			<div class="row">
-				<div class="col-md-12" id="table_div"></div>
-			</div>
-		</div> -->
 
 		<div class="container" id="container1">
 			
@@ -172,9 +222,14 @@
 					<p id="change"></p>
 				</div>
 			</div>
-
-
 			
+		</div>
+
+
+		<div class="container" id="container1">
+			<div class="row">
+				<div class="col-md-12" id="table_div"></div>
+			</div>
 		</div>
 
 

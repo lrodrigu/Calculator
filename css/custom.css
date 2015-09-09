@@ -4,6 +4,158 @@ body{
 	margin:0px;  
 }
 
+#container0{
+	margin-top: 100px;
+	border: solid 2px #4d4d4d;
+	padding-top:10px;
+	padding-left:25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	border-radius: 0px;
+	box-shadow: -10px 10px 5px #888888
+}
+
+#companyname{
+	font-size: 12pt;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+#companystockprice{
+	font-size: 12pt;
+	margin-top: 10px;
+	text-align: right;
+}
+
+#companystockpricechange{
+	font-size: 12pt;
+	margin-top: 10px;
+	color:green;
+	font-weight: bold;
+	text-align: left;
+}
+
+#container1{
+	margin-top: 50px;
+	border: solid 2px #4d4d4d;
+	padding-top:10px;
+	padding-left:25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	border-radius: 0px;
+	box-shadow: -10px 10px 5px #888888
+}
+
+#container2{
+	margin-top: 50px;
+	border: solid 2px #4d4d4d;
+	padding-top:10px;
+	padding-left:25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	border-radius: 0px;
+	box-shadow: -10px 10px 5px #888888
+}
+
+#container3{
+	margin-top: 50px;
+	border: solid 2px #4d4d4d;
+	padding-top:10px;
+	padding-left:25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	border-radius: 0px;
+	box-shadow: -10px 10px 5px #888888
+}
+
+#mainsection{
+	margin-bottom:1%;
+	font-size: 18pt;
+	font-family: Arial;
+	font-weight: bold;
+	letter-spacing: 3px;
+	text-align: left;
+	color: #4d4d4d;
+	border-bottom: solid 3px #4d4d4d;
+}
+
+#subsection{
+	font-family:Arial;
+	font-size: 11pt;
+	color:white;
+	background: navy;
+	padding-left: 5px;
+	letter-spacing: 2px;
+	border-radius: 5px;
+}
+
+#textdes{
+	text-align: justify;
+	padding:10px;
+}
+
+#period{
+	padding: 12px;
+	font-weight: bold;
+	font-size: 12pt;
+}
+
+#statementtitle{
+	font-size: 12pt;
+	padding-left: 5px;
+	font-weight: bold;
+	border-bottom: solid 3px gray;
+}
+
+#subtotals{
+	font-weight: bold;
+	border-top:solid 1px gray;
+}
+
+#totals{
+	background: #D3D3D3;
+	font-weight: bold;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+#rightindent{
+	text-align: right;
+	padding-right: 100px;
+}
+
+#centerindent{
+	text-align: center;
+/*	padding-right: 100px;*/
+}
+
+#ratiotype{
+	font-family:Arial;
+	font-size: 11pt;
+	color:white;
+	background: navy;
+	padding-left: 5px;
+	letter-spacing: 2px;
+	border-radius: 5px;
+}
+
+#graphtitle{
+	text-align: left;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-bottom: 15px;
+	padding: 0px;
+}
+
+#footer{
+	background: gray;
+	line-height: 35px;
+	height: 35px; 
+	color:#fafafa;
+	margin-top: 30px;
+	font-size: 10pt;
+}
+
 #header{
 	position: fixed;
 	top:0;

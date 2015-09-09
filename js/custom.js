@@ -1,100 +1,141 @@
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
+// Load the Visualization API and the piechart package.
+google.load('visualization', '1.0', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
+// Set a callback to run when the Google Visualization API is loaded.
+google.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
 
-      var data = getData("year");
-      var options = {'title':'Stock Prices',
-                       'width':400,
-                       'height':300,
-                       'titleTextStyyle': {color:'white', fontName:'GillSans'},
-                       'legendTextStyle': {color:'white', fontName:'GillSans'},
-                       'chartArea.width':200,
-        };
+//Stock info:
 
 
 
-      function drawChart() {
+function getStockData(){
 
-        // Create the data table.
-        var chartData = google.visualization.arrayToDataTable(data);
+	var x = document.getElementById("ticketinput").value;
 
+	var BASE_URL = 'http://query.yahooapis.com/v1/public/yql?q=';
+	var yql_query = 'select * from yahoo.finance.quotes where symbol in ("'+x+'")';
+	var yql_query_str = encodeURI(BASE_URL+yql_query);
+	var query_str_final = yql_query_str + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(chartData, options);
-      };
+	$.getJSON(query_str_final, function(getStockData){
+		
+		var EBITDA = getStockData.query.results.quote.EBITDA;
+		var PriceBook = getStockData.query.results.quote.PriceBook;
+		var PriceSales = getStockData.query.results.quote.PriceSales;
 
-      function getData(dataRange){
-
-        var dataArray = [
-            ['Date', 'Stock Value'],
-        ];
-
-        var BASE_URL = 'http://query.yahooapis.com/v1/public/yql?q=';
-        var yql_query;        
-
-        if(dataRange === "year"){
-            yql_query = 'select * from yahoo.finance.historicaldata where symbol = "YHOO" and startDate = "2013-09-29" and endDate = "2014-09-29"';
-        }else if (dataRange === "halfyear"){
-            yql_query = 'select * from yahoo.finance.historicaldata where symbol = "YHOO" and startDate = "2014-03-29" and endDate = "2014-09-29"';
-        };
-
-        var query_str_final = yql_query_str + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-        var yql_query_str = encodeURI(BASE_URL+yql_query);
-
-        $.getJSON(query_str_final, function(data){
-            var stockArray = data.query.results.quote
-    
-            for (var i = 0; i < stockArray.length; i++) {
-                var currentObject = stockArray[i];
-                console.log(currentObject.Close);
-                //Push values of currentObject.date and currentObject.close into DataArray
-                var pushedArray = [currentObject.Date, parseFloat(currentObject.close)];
-                dataArray[i+1] = pushedArray;
-
-            }
-            console.log(DataArray)
-            return dataArray;
-
-        });
-    
-        };
-
-            
-      function buttonPressed(buttonTitle){
-            
-            data = getData(buttonTitle);
-
-        // Create the data table.
-        var chartData = google.visualization.arrayToDataTable(data);
+		// console.log(getStockData);
+		// console.log(EBITDA);
+		// console.log(PriceBook);
+		// console.log(PriceSales);
+	
+		document.getElementById("EBITDA").innerHTML = "EBITDA: " +EBITDA;
+		document.getElementById("PriceBook").innerHTML = "P/B ratio: " +PriceBook;
+		document.getElementById("PriceSales").innerHTML = "P/S ratio: " +PriceSales;
 
 
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(chartData, options);
-      };
+	});
+};
 
-      google.setOnLoadCallback(drawTable);
+//Variabales required to build the stock price graph:
 
-      function drawTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Name');
-        data.addColumn('number', 'Salary');
-        data.addColumn('boolean', 'Full Time Employee');
-        data.addRows([
-          ['Mike',  {v: 10000, f: '$10,000'}, true],
-          ['Jim',   {v:8000,   f: '$8,000'},  false],
-          ['Alice', {v: 12500, f: '$12,500'}, true],
-          ['Bob',   {v: 7000,  f: '$7,000'},  true]
-        ]);
+var data = getData("year");
 
-        var table = new google.visualization.Table(document.getElementById('table_div'));
+var options = {'width':1100,
+			'height':500,
+			'titleTextStyle': {color:'navy', fontName:'Arial'},
+			'chartArea':{width: '80%', height: '80%'},
+			'fontSize':11,
+			'reverseCategories': true,	
+			'legend': {position: 'top', textStyle: {color: 'navy', fontSize: 16}},
+			'vAxis': {format: '$##'},
+			'hAxis': {gridlines:{count:20}, showTextEvery: 20},
+};
 
-        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-      }
+function getData(dataRange){
+
+	var x = document.getElementById("ticketinput").value;
+
+	var dataArray = [
+        ['Date', 'Stock Price'],
+    ];
+
+	var BASE_URL = 'http://query.yahooapis.com/v1/public/yql?q=';
+	var yql_query;        
+
+	if(dataRange === "year"){
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2014-09-05" and endDate = "2015-09-05"';
+	}else if (dataRange === "halfyear"){
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-03-05" and endDate = "2015-09-05"';
+	};
+
+	var yql_query_str = encodeURI(BASE_URL+yql_query);
+	var query_str_final = yql_query_str + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+
+
+	$.getJSON(query_str_final, function(data){
+		
+		var stockArray = data.query.results.quote;
+
+		console.log(stockArray);
+
+		for (var i = 0; i < stockArray.length; i++) {
+			var currentObject = stockArray[i];
+			console.log(currentObject.Close);
+
+			//Push values of currentObject.date and currentObject.close into DataArray
+			var pushedArray = [currentObject.Date, parseFloat(currentObject.Close)];
+			dataArray[i+1] = pushedArray;
+		}
+
+		console.log(dataArray);
+
+		// Create the data table.
+		var chartData = google.visualization.arrayToDataTable(dataArray);
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		chart.draw(chartData, options);
+
+	});
+
+};
+
+function buttonPressed(buttonTitle){
+	data = getData(buttonTitle);
+	};
+
+
+function drawChart() {
+
+	// Create the data table.
+	var data = new google.visualization.DataTable();
+	data.addColumn('string', 'Account');
+	data.addColumn('number', 'Amount');
+	data.addRows([
+	  ['Total Liabilities', 105664000],
+	  ['Stockholders Equity', 11868000],
+	]);
+
+	// Set chart options
+	var options = {
+
+		'width':300,
+		'height':200,
+        'chartArea':{width: '80%', height: '80%'},
+        'pieHole': 0.4,
+        'fontSize':11,
+        'legend': {
+			position: 'top',
+			textStyle:{
+				color: 'black',
+				fontSize: 11,
+				},
+		},
+	};
+
+	// Instantiate and draw our chart, passing in some options.
+	var chart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+	chart.draw(data, options);
+
+}
