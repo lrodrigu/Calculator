@@ -4,9 +4,7 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 // Set a callback to run when the Google Visualization API is loaded.
 google.setOnLoadCallback(drawChart);
 
-
 //Stock info:
-
 
 
 function getStockData(){
@@ -20,21 +18,44 @@ function getStockData(){
 
 	$.getJSON(query_str_final, function(getStockData){
 		
-		var EBITDA = getStockData.query.results.quote.EBITDA;
-		var PriceBook = getStockData.query.results.quote.PriceBook;
-		var PriceSales = getStockData.query.results.quote.PriceSales;
+		var Name = getStockData.query.results.quote.Name;
+		var Symbol = getStockData.query.results.quote.Symbol;
+		var LastTradePriceOnly = getStockData.query.results.quote.LastTradePriceOnly;
+		var LastTradeTime = getStockData.query.results.quote.LastTradeTime;
+		var Change = getStockData.query.results.quote.Change;
+		var ChangeinPercent = getStockData.query.results.quote.ChangeinPercent;
+		var PreviousClose = getStockData.query.results.quote.PreviousClose;
+		var Open = getStockData.query.results.quote.Open;
+		var Bid = getStockData.query.results.quote.Bid;
+		var Ask = getStockData.query.results.quote.Ask;
+		var OneyrTargetPrice = getStockData.query.results.quote.OneyrTargetPrice;
+		var DaysRange = getStockData.query.results.quote.DaysRange;
+		var YearRange = getStockData.query.results.quote.YearRange;
+		var Volume = getStockData.query.results.quote.Volume;
+		var AverageDailyVolume = getStockData.query.results.quote.AverageDailyVolume;
+		var MarketCapitalization = getStockData.query.results.quote.MarketCapitalization;
 
-		// console.log(getStockData);
-		// console.log(EBITDA);
-		// console.log(PriceBook);
-		// console.log(PriceSales);
-	
-		document.getElementById("EBITDA").innerHTML = "EBITDA: " +EBITDA;
-		document.getElementById("PriceBook").innerHTML = "P/B ratio: " +PriceBook;
-		document.getElementById("PriceSales").innerHTML = "P/S ratio: " +PriceSales;
 
+		document.getElementById("Name").innerHTML = Name;
+		document.getElementById("Symbol").innerHTML = Symbol;
+		document.getElementById("LastTradePriceOnly").innerHTML = LastTradePriceOnly;
+		document.getElementById("LastTradeTime").innerHTML = LastTradeTime;
+		document.getElementById("Change").innerHTML = Change;
+		document.getElementById("ChangeinPercent").innerHTML = ChangeinPercent;
+		document.getElementById("PreviousClose").innerHTML = PreviousClose;
+		document.getElementById("Open").innerHTML = Open;
+		document.getElementById("Bid").innerHTML = Bid;
+		document.getElementById("Ask").innerHTML = Ask;
+		document.getElementById("OneyrTargetPrice").innerHTML = OneyrTargetPrice;
+		document.getElementById("DaysRange").innerHTML = DaysRange;
+		document.getElementById("YearRange").innerHTML = YearRange;
+		document.getElementById("Volume").innerHTML = Volume;
+		document.getElementById("AverageDailyVolume").innerHTML = AverageDailyVolume;
+		document.getElementById("MarketCapitalization").innerHTML = MarketCapitalization;
 
 	});
+
+
 };
 
 //Variabales required to build the stock price graph:
@@ -64,9 +85,11 @@ function getData(dataRange){
 	var yql_query;        
 
 	if(dataRange === "year"){
-		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2014-09-05" and endDate = "2015-09-05"';
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2014-09-10" and endDate = "2015-09-09"';
 	}else if (dataRange === "halfyear"){
-		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-03-05" and endDate = "2015-09-05"';
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-03-10" and endDate = "2015-09-09"';
+	}else if (dataRange === "month"){
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-08-10" and endDate = "2015-09-09"';	
 	};
 
 	var yql_query_str = encodeURI(BASE_URL+yql_query);
@@ -138,4 +161,6 @@ function drawChart() {
 	var chart = new google.visualization.PieChart(document.getElementById('piechart_div'));
 	chart.draw(data, options);
 
-}
+};
+
+		  

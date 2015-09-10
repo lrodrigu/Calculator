@@ -4,35 +4,93 @@ body{
 	margin:0px;  
 }
 
-#container0{
-	margin-top: 100px;
+
+/*.red{
+  color: red;
+}
+
+.green{
+  color: green;
+}*/
+
+#symbollookup{
+	margin-top: 60px;
 	border: solid 2px #4d4d4d;
 	padding-top:10px;
 	padding-left:25px;
 	padding-right:25px;
 	padding-bottom:25px;
 	border-radius: 0px;
-	box-shadow: -10px 10px 5px #888888
+	box-shadow: -10px 10px 5px #888888;
+	border-radius: 10px; 
+
 }
 
-#companyname{
-	font-size: 12pt;
+#trade{
+	text-align: center;
+	font-size: 14pt;
+	margin-top: 15px;
+	margin-bottom: 10px; 
+	font-family: Arial;
 	font-weight: bold;
-	margin-top: 10px;
+
 }
 
-#companystockprice{
-	font-size: 12pt;
-	margin-top: 10px;
-	text-align: right;
+#stockummary{
+	margin-top: 15px;
+	margin-bottom: 10px; 
 }
 
-#companystockpricechange{
-	font-size: 12pt;
-	margin-top: 10px;
-	color:green;
+#Name{
+	font-size: 17px;
+}
+
+#Symbol{
+	text-transform: uppercase;
+	font-size: 17px;
+}
+
+#Symbolp{
+	text-transform: uppercase;
+	font-size: 17px;
+}
+
+#LastTradePriceOnly{
+	text-transform: uppercase;
+	font-size: 17px;
+}
+
+.time{
+	color: gray;
+	font-size: 11px;
+}
+
+#stockattribute{
+	color: gray;
 	font-weight: bold;
-	text-align: left;
+}
+
+.result{
+	color: black;
+	font-weight: bold;
+
+}
+
+#buttonformat{
+	width: 100px;
+	height: 35px;
+	margin-left:1%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#border{
+	border: solid 1px gray;
+/*	box-shadow: -5px 10px 5px #888888;*/
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-radius: 10px;
+
 }
 
 #container1{
@@ -70,10 +128,10 @@ body{
 
 #mainsection{
 	margin-bottom:1%;
-	font-size: 18pt;
+	font-size: 14pt;
 	font-family: Arial;
 	font-weight: bold;
-	letter-spacing: 3px;
+	letter-spacing: 1px;
 	text-align: left;
 	color: #4d4d4d;
 	border-bottom: solid 3px #4d4d4d;
