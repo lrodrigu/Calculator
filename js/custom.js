@@ -85,11 +85,11 @@ function getData(dataRange){
 	var yql_query;        
 
 	if(dataRange === "year"){
-		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2014-09-10" and endDate = "2015-09-09"';
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2014-09-10" and endDate = "2015-09-10"';
 	}else if (dataRange === "halfyear"){
-		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-03-10" and endDate = "2015-09-09"';
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-03-10" and endDate = "2015-09-10"';
 	}else if (dataRange === "month"){
-		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-08-10" and endDate = "2015-09-09"';	
+		yql_query = 'select * from yahoo.finance.historicaldata where symbol = "'+x+'" and startDate = "2015-08-10" and endDate = "2015-09-10"';	
 	};
 
 	var yql_query_str = encodeURI(BASE_URL+yql_query);
@@ -157,10 +157,12 @@ function drawChart() {
 		},
 	};
 
+
+
+
 	// Instantiate and draw our chart, passing in some options.
 	var chart = new google.visualization.PieChart(document.getElementById('piechart_div'));
 	chart.draw(data, options);
 
 };
 
-		  

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Company Valuation Calculator</title>
+		<title>Stock Screener 1.0</title>
 	</head>
 		
 		<meta charset="utf-8">
@@ -37,12 +37,12 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>	
-					<a class="navbar-brand" href="#"><b>Stock Valuation Calculator</b></a>
+					<a class="navbar-brand" href="#"><b>Stock Screener 1.0</b></a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav" id="navcolor">
-						<li><a href="#container0">Financial Summary</a></li>
-						<li><a href="#container2">Key Metics</a></li>
+						<li><a href="#review">Financial Summary</a></li>
+						<li><a href="#km">Key Metics</a></li>
 						<li><a href="#container3">Statment Analysis</a></li>
 						<li><a href="#peervaluation">Peer Valuation</a></li>
 					</ul>
@@ -192,9 +192,6 @@
 
 
 				</div>
-
-
-
 
 	
 			</div>
@@ -459,7 +456,7 @@
 			<div class="row" id="statementtitle">CASH FLOW STATEMENT</div>
 
 				<div class="row">
-					<div class="col-md-3">Cash Flow From Operating Activities</div>
+					<div class="col-md-3" id="km">Cash Flow From Operating Activities</div>
 					<div class="col-md-3" id="rightindent">16,868,000</div>
 					<div class="col-md-3" id="rightindent">17,485,000</div>
 					<div class="col-md-3" id="rightindent">19,586,000</div>					
@@ -620,20 +617,24 @@
 
 			<div class="row" id="mainsection">Statement Analysis</div>
 	
+			<div class="row">
+
 				<div class="col-md-4">
-					<div class="row" id="graphtitle">Balance Sheet</div>
-					<div class="row" id="piechart_div"></div>
+					<div id="graphtitle">Balance Sheet</div>
+					<div id="piechart_div"></div>
 				</div>
 
 				<div class="col-md-4">
-					<div class="row" id="graphtitle">Income Statment</div>
-					<div class="row" id="piechart_div"></div>
+					<div id="graphtitle">Income Statment</div>
+					<div id="piechart_div"></div>
 				</div>
 
 				<div class="col-md-4">
-					<div class="row" id="graphtitle">Cash Flow Statement</div>
-					<div class="row" id="piechart_div"></div>
+					<div id="graphtitle">Cash Flow Statement</div>
+					<div id="piechart_div"></div>
 				</div>
+
+			</div>
 	
 		</div>
 
@@ -656,6 +657,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/custom.js"></script>
+
 
 		<script type="text/javascript">
 			
